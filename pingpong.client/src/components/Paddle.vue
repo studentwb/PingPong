@@ -1,32 +1,30 @@
 <template>
   <div class="container">
-    <div class="ball" :style="{ top: ballY + 'px', left: ballX + 'px' }"></div>
+    <div class="paddle" :style="{ top: ballY + 'px', left: ballX + 'px' }"></div>
   </div>
 </template>
-
-<script>
-  export default {
+<script>export default {
     data() {
       return {
         ballX: 100, // Pozycja pozioma
         ballY: 100, // Pozycja pionowa
-        speedX: 2, // Prędkość pozioma
+       // speedX: 2, // Prędkość pozioma
         speedY: 3, // Prędkość pionowa
       };
     },
     mounted() {
-      this.moveBall();
+      this.movePaddle();
     },
     methods: {
-      moveBall() {
+      movePaddle() {
         const animate = () => {
-          this.ballX += this.speedX;
+          //this.ballX += this.speedX;
           this.ballY += this.speedY;
 
           // Odbicia od ścian
-          if (this.ballX <= 0 || this.ballX >= window.innerWidth - 50) {
-            this.speedX *= -1;
-          }
+          //if (this.ballX <= 0 || this.ballX >= window.innerWidth - 50) {
+          //  this.speedX *= -1;
+          //}
           if (this.ballY <= 0 || this.ballY >= window.innerHeight - 50) {
             this.speedY *= -1;
           }
@@ -36,24 +34,16 @@
         animate();
       },
     },
-  };
-</script>
+  };</script>
 
 <style>
-  .container {
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-    background-color: black
-  }
 
-  .ball {
-    width: 100px;
+  .paddle {
+    width: 10px;
     height: 100px;
-    background-image: url('/src/components/icons/ball.png');
     background-size: contain;
-    border-radius: 50%;
+    border-radius: 0%;
+    background-color: red;
     position: absolute;
   }
 </style>
