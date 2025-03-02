@@ -1,15 +1,11 @@
 <script setup lang="ts">
-  import HelloWorld from './components/HelloWorld.vue'
-  import Paddle from './components/Paddle.vue'
+  import Game from './components/Game.vue'
 </script>
 
 <template>
   <header>
- 
-
-    <div class="wrapper">
-      <HelloWorld/>
-      <Paddle/>
+    <div>
+      <Game/>
     </div>
   </header>
 

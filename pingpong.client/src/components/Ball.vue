@@ -1,17 +1,15 @@
 <template>
-  <div class="container">
-    <div class="ball" :style="{ top: ballY + 'px', left: ballX + 'px' }"></div>
-  </div>
+    <div class="ball" :style="{ top: y + 'px', left: x + 'px' }"></div>
 </template>
 
 <script>
   export default {
     data() {
       return {
-        ballX: 100, // Pozycja pozioma
-        ballY: 100, // Pozycja pionowa
-        speedX: 2, // Prędkość pozioma
-        speedY: 3, // Prędkość pionowa
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2,
+        speedX: 5,
+        speedY: 3,
       };
     },
     mounted() {
@@ -20,20 +18,23 @@
     methods: {
       moveBall() {
         const animate = () => {
-          this.ballX += this.speedX;
-          this.ballY += this.speedY;
+          this.x += this.speedX;
+          this.y += this.speedY;
 
-          // Odbicia od ścian
-          if (this.ballX <= 0 || this.ballX >= window.innerWidth - 50) {
-            this.speedX *= -1;
-          }
-          if (this.ballY <= 0 || this.ballY >= window.innerHeight - 50) {
+          // Odbicie od góry i dołu
+          if (this.y <= 0 || this.y >= window.innerHeight - 20) {
             this.speedY *= -1;
           }
+
+          // Odbicie od paletek
+          this.$emit("checkCollision", { x: this.x, y: this.y });
 
           requestAnimationFrame(animate);
         };
         animate();
+      },
+      reverseDirection() {
+        this.speedX *= -1; // Odbicie od paletki
       },
     },
   };
