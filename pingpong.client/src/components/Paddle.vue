@@ -36,7 +36,7 @@
         movePaddle() {
           const animate = () => {
             if (this.keys.up) this.y = Math.max(0, this.y - this.speed);
-            if (this.keys.down) this.y = Math.min(window.innerHeight - 100, this.y + this.speed);
+            if (this.keys.down) this.y = Math.min(0.9*window.innerHeight - 100, this.y + this.speed);
             requestAnimationFrame(animate);
           };
           animate();

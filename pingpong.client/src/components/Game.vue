@@ -20,7 +20,8 @@ export default {
       // Sprawdzenie kolizji z lewą paletką
       if (
         ballPosition.x <= leftPaddle.right &&
-        ballPosition.y >= leftPaddle.top &&
+        ballPosition.x + ballSize >= leftPaddle.left &&
+        ballPosition.y + ballSize >= leftPaddle.top &&
         ballPosition.y <= leftPaddle.bottom
       ) {
         this.$refs.ball.reverseDirection();
@@ -28,8 +29,9 @@ export default {
 
       // Sprawdzenie kolizji z prawą paletką
       if (
-        ballPosition.x >= rightPaddle.left - 20 &&
-        ballPosition.y >= rightPaddle.top &&
+        ballPosition.x + ballSize >= rightPaddle.left &&
+        ballPosition.x <= rightPaddle.right &&
+        ballPosition.y + ballSize >= rightPaddle.top &&
         ballPosition.y <= rightPaddle.bottom
       ) {
         this.$refs.ball.reverseDirection();

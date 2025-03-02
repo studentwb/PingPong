@@ -10,6 +10,7 @@
         y: window.innerHeight / 2,
         speedX: 5,
         speedY: 3,
+        ballSize: 50,
       };
     },
     mounted() {
@@ -22,12 +23,14 @@
           this.y += this.speedY;
 
           // Odbicie od góry i dołu
-          if (this.y <= 0 || this.y >= window.innerHeight - 20) {
+          if (this.y <= 0 || this.y >= 0.9*window.innerHeight - this.ballSize) {
             this.speedY *= -1;
           }
-
+          if (this.x <= 0 || this.x >= 0.9*window.innerWidth - this.ballSize) {
+          this.speedX *= -1;
+          }
           // Odbicie od paletek
-          this.$emit("checkCollision", { x: this.x, y: this.y });
+          this.$emit("checkCollision", { x: this.x, y: this.y, size: this.ballSize });
 
           requestAnimationFrame(animate);
         };
@@ -50,8 +53,8 @@
   }
 
   .ball {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     background-image: url('/src/components/icons/ball.png');
     background-size: contain;
     border-radius: 50%;
