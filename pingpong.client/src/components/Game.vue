@@ -14,26 +14,35 @@
     components: { Paddle, Ball },
     methods: {
       checkCollision(ballPosition) {
-        const leftPaddle = this.$refs.leftPaddle.$el.getBoundingClientRect();
-        const rightPaddle = this.$refs.rightPaddle.$el.getBoundingClientRect();
-
+        const leftPaddleY = this.$refs.leftPaddle.y;
+        const rightPaddleY = this.$refs.rightPaddle.y;
+        const paddleHeight = 100;
+        const paddleWidth = 10;
+        const leftPaddleX = 30;
+        const rightPaddleX = window.innerWidth - 40;
+        //do poprawy logika biznesowa tych if-ów
+          //a tak to działa 
         // Sprawdzenie kolizji z lewą paletką
         if (
-          ballPosition.x <= leftPaddle.right &&
-          ballPosition.x + ballPosition.ballsize >= leftPaddle.left &&
-          ballPosition.y + ballPosition.ballsize >= leftPaddle.top &&
-          ballPosition.y <= leftPaddle.bottom
+          ballPosition.x <= leftPaddleX + paddleWidth &&
+          ballPosition.x + ballPosition.ballSize >= leftPaddleX &&
+          ballPosition.y + ballPosition.ballSize >= leftPaddleY &&
+          ballPosition.y <= leftPaddleY + paddleHeight
         ) {
+          console.log("ball:", ballPosition);
+          console.log("left:", { x: leftPaddleX, y: leftPaddleY });
           this.$refs.ball.reverseDirection();
         }
 
         // Sprawdzenie kolizji z prawą paletką
         if (
-          ballPosition.x + ballPosition.ballsize >= rightPaddle.left &&
-          ballPosition.x <= rightPaddle.right &&
-          ballPosition.y + ballPosition.ballsize >= rightPaddle.top &&
-          ballPosition.y <= rightPaddle.bottom
+          ballPosition.x + ballPosition.ballSize >= rightPaddleX &&
+          ballPosition.x <= rightPaddleX + paddleWidth &&
+          ballPosition.y + ballPosition.ballSize >= rightPaddle.y &&
+          ballPosition.y <= rightPaddle.y + paddleHeight
         ) {
+          console.log("ball:", ballPosition);
+          console.log("Prawa paletka:", { x: rightPaddleX, y: rightPaddleY });
           this.$refs.ball.reverseDirection();
         }
       },

@@ -41,7 +41,8 @@
         animate();
       },
       reverseDirection() {
-        this.speedX *= -1; // Odbicie od paletki
+        this.speedX *= -1;
+        this.x += this.speedX * 2;// Odbicie od paletki
       },
       resetBall() {
         this.x = window.innerWidth / 2;
