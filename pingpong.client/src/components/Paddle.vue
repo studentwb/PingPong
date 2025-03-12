@@ -10,7 +10,7 @@
       },
       data() {
         return {
-          y: this.startY, // Pozycja paletki
+          y: this.startY, 
           speed: 5,
           keys: { up: false, down: false },
         };
