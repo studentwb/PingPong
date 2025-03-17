@@ -26,14 +26,12 @@
           this.x += this.speedX;
           this.y += this.speedY;
 
-          // Odbicie od góry i dołu
           if (this.y <= 0 || this.y >= 0.9 * window.innerHeight - this.ballSize) {
             this.speedY *= -1;
           }
           if (this.x <= 0 || this.x >= 0.9 * window.innerWidth - this.ballSize) {
             this.speedX *= -1;
           }
-          // Odbicie od paletek
           this.$emit("checkCollision", { x: this.x, y: this.y, ballSize: this.ballSize });
 
           requestAnimationFrame(animate);

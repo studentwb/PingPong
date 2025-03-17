@@ -1,11 +1,12 @@
 <script setup lang="ts">
   import Game from './components/Game.vue'
   import Ball from './components/Ball.vue'
+  import Result from './components/Result.vue'
 </script>
 
 <template>
    <main>
-    <Game />
+    <Game/>
   </main>
 </template>
 

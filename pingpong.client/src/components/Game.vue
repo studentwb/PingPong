@@ -1,7 +1,7 @@
 <template>
   <div class="game">
-    <Paddle :startY="200" controlUp="w" controlDown="s" ref="leftPaddle" class="left-paddle" />
-    <Paddle :startY="200" controlUp="ArrowUp" controlDown="ArrowDown" ref="rightPaddle" class="right-paddle" />
+    <Result ref="resultRef" />
+    <Paddle :startY="200" controlUp="ArrowUp" controlDown="ArrowDown" ref="leftPaddle" class="left-paddle" />
     <Ball @checkCollision="checkCollision" ref="ball" />
   </div>
 </template>
@@ -9,48 +9,36 @@
 <script>
   import Ball from "./Ball.vue";
   import Paddle from "./Paddle.vue";
-
+  import Result from "./Result.vue";
   export default {
-    components: { Paddle, Ball },
+    components: { Paddle, Ball, Result },
     methods: {
       checkCollision(ballPosition) {
-        const leftPaddleY = this.$refs.leftPaddle.y;
-        const rightPaddleY = this.$refs.rightPaddle.y;
+        // const leftPaddleY = this.$refs.leftPaddle.y;
+        const leftPaddle = this.$refs.leftPaddle.$el.getBoundingClientRect();
         const paddleHeight = 100;
         const paddleWidth = 10;
-        const leftPaddleX = 30;
-        const rightPaddleX = window.innerWidth - 40;
-        //do poprawy logika biznesowa tych if-ów
-          //a tak to działa 
-        // Sprawdzenie kolizji z lewą paletką
+        //const leftPaddleX = 30;
+        const leftPaddleX = leftPaddle.left;    // Pozycja X paletki
+        const leftPaddleY = leftPaddle.top;     // Pozycja Y paletki
         if (
           ballPosition.x <= leftPaddleX + paddleWidth &&
-          ballPosition.x + ballPosition.ballSize >= leftPaddleX &&
-          ballPosition.y + ballPosition.ballSize >= leftPaddleY &&
+          ballPosition.x  >= leftPaddleX &&
+          ballPosition.y >= leftPaddleY &&
           ballPosition.y <= leftPaddleY + paddleHeight
         ) {
-          console.log("ball:", ballPosition);
-          console.log("left:", { x: leftPaddleX, y: leftPaddleY });
+          console.log("Ball", ballPosition);
+          console.log("Paddle X:", leftPaddleX, "Paddle Y:", leftPaddleY);
           this.$refs.ball.reverseDirection();
+          this.$refs.resultRef.increaseResult(); 
         }
 
-        // Sprawdzenie kolizji z prawą paletką
-        if (
-          ballPosition.x + ballPosition.ballSize >= rightPaddleX &&
-          ballPosition.x <= rightPaddleX + paddleWidth &&
-          ballPosition.y + ballPosition.ballSize >= rightPaddle.y &&
-          ballPosition.y <= rightPaddle.y + paddleHeight
-        ) {
-          console.log("ball:", ballPosition);
-          console.log("Prawa paletka:", { x: rightPaddleX, y: rightPaddleY });
-          this.$refs.ball.reverseDirection();
-        }
       },
     },
   };
 </script>
 
-<style>
+<style scoped>
   .game {
     width: 90vw;
     height: 90vh;
@@ -74,3 +62,4 @@
     right: 100px;
   }
 </style>
+
