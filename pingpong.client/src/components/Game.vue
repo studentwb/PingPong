@@ -13,8 +13,9 @@
   export default {
     components: { Paddle, Ball, Result },
     methods: {
-      checkCollision(ballPosition) {
+      checkCollision() {
         // const leftPaddleY = this.$refs.leftPaddle.y;
+        const ballPosition = this.$refs.ball.$el.getBoundingClientRect();
         const leftPaddle = this.$refs.leftPaddle.$el.getBoundingClientRect();
         const paddleHeight = 100;
         const paddleWidth = 10;
