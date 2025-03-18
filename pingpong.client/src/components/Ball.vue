@@ -59,8 +59,8 @@
       resetBall() {
         this.x = window.innerWidth / 2;
         this.y = window.innerHeight / 2;
-        this.speedX = (Math.random() > 0.5 ? 1 : -1) * 5;
-        this.speedY = (Math.random() > 0.5 ? 1 : -1) * 3;
+        this.speedX = 5;
+        this.speedY = 3;
         this.gameOver = false;
         this.moveBall();
         animate();
