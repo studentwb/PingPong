@@ -2,7 +2,7 @@
   <div class="game">
     <Result ref="resultRef" />
     <Paddle :startY="200" controlUp="ArrowUp" controlDown="ArrowDown" ref="leftPaddle" class="left-paddle" />
-    <Ball @checkCollision="checkCollision" ref="ball" />
+    <Ball @checkCollision="checkCollision" @gameOver="handleGameOver" ref="ball" />
   </div>
 </template>
 
@@ -10,30 +10,32 @@
   import Ball from "./Ball.vue";
   import Paddle from "./Paddle.vue";
   import Result from "./Result.vue";
+
   export default {
     components: { Paddle, Ball, Result },
     methods: {
+      handleGameOver() {
+        console.log("Koniec gry!");
+        alert("Gra zakończona! Wynik: " + this.$refs.resultRef.result);
+        this.$refs.ball.resetBall(); 
+        this.$refs.resultRef.resetResult(); 
+      },
+
       checkCollision() {
-        // const leftPaddleY = this.$refs.leftPaddle.y;
         const ballPosition = this.$refs.ball.$el.getBoundingClientRect();
         const leftPaddle = this.$refs.leftPaddle.$el.getBoundingClientRect();
-        const paddleHeight = 100;
-        const paddleWidth = 10;
-        //const leftPaddleX = 30;
-        const leftPaddleX = leftPaddle.left;    // Pozycja X paletki
-        const leftPaddleY = leftPaddle.top;     // Pozycja Y paletki
-        if (
-          ballPosition.x <= leftPaddleX + paddleWidth &&
-          ballPosition.x  >= leftPaddleX &&
-          ballPosition.y >= leftPaddleY &&
-          ballPosition.y <= leftPaddleY + paddleHeight
-        ) {
-          console.log("Ball", ballPosition);
-          console.log("Paddle X:", leftPaddleX, "Paddle Y:", leftPaddleY);
-          this.$refs.ball.reverseDirection();
-          this.$refs.resultRef.increaseResult(); 
-        }
+        const paddleHeight = leftPaddle.height;
+        const paddleWidth = leftPaddle.width;
 
+        if (
+          ballPosition.left <= leftPaddle.right &&
+          ballPosition.right >= leftPaddle.left &&
+          ballPosition.top <= leftPaddle.bottom &&
+          ballPosition.bottom >= leftPaddle.top
+        ) {
+          this.$refs.ball.reverseDirection();
+          this.$refs.resultRef.increaseResult();
+        }
       },
     },
   };
@@ -58,9 +60,4 @@
   .left-paddle {
     left: 100px;
   }
-
-  .right-paddle {
-    right: 100px;
-  }
 </style>
-

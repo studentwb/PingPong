@@ -8,12 +8,15 @@
   export default {
     data() {
       return {
-        result: 0, // Naprawiony błąd: użycie ":" zamiast "="
+        result: 0, 
       };
     },
     methods: {
       increaseResult() {
-        this.result += 1; // Poprawny dostęp do "this"
+        this.result += 1; 
+      },
+      resetResult() {
+        this.result = 0;
       },
     },
   };
@@ -21,8 +24,8 @@
 
 <style scoped>
   .result {
-    position: absolute; /* Umieszczenie na górze */
-    top: 20px; /* Odstęp od góry */
+    position: absolute; 
+    top: 20px; 
     left: 50%;
     transform: translateX(-50%);
     font-size: 24px;
