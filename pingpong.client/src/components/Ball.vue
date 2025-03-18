@@ -62,7 +62,8 @@
         this.speedX = (Math.random() > 0.5 ? 1 : -1) * 5;
         this.speedY = (Math.random() > 0.5 ? 1 : -1) * 3;
         this.gameOver = false;
-        this.moveBall(); 
+        this.moveBall();
+        animate();
       },
     },
   };
