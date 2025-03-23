@@ -5,6 +5,7 @@
 </template>
 
 <script>
+  import axios from 'axios';
   export default {
     data() {
       return {
@@ -17,6 +18,23 @@
       },
       resetResult() {
         this.result = 0;
+      },
+      async sendResult() {
+        
+        const resultToSend =  this.result ; 
+        console.log('Api przesyła:', resultToSend);
+      //  axios.post('https://localhost:7026/api/game', resultToSend)
+        await axios.post('https://localhost:7026/api/game', resultToSend, {
+          headers: {
+            'Content-Type': 'application/json' 
+          }
+        })
+          .then((res) => {
+            console.log('Wysłano wynik:', res.data);
+          })
+          .catch((error) => {
+            console.error('Błąd podczas wysyłania:', error?.response?.data?.message || error.message);
+          });
       },
     },
   };

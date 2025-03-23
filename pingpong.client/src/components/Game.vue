@@ -15,7 +15,7 @@
     components: { Paddle, Ball, Result },
     methods: {
       handleGameOver() {
-        console.log("Koniec gry!");
+        this.$refs.resultRef.sendResult();
         alert("Gra zakończona! Wynik: " + this.$refs.resultRef.result);
         this.$refs.ball.resetBall(); 
         this.$refs.resultRef.resetResult(); 
