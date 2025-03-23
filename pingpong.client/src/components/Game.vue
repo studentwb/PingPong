@@ -15,10 +15,9 @@
     components: { Paddle, Ball, Result },
     methods: {
       handleGameOver() {
-        this.$refs.resultRef.sendResult();
         alert("Gra zakończona! Wynik: " + this.$refs.resultRef.result);
+        this.$refs.resultRef.sendResult();
         this.$refs.ball.resetBall(); 
-        this.$refs.resultRef.resetResult(); 
       },
 
       checkCollision() {

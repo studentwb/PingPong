@@ -16,14 +16,10 @@
       increaseResult() {
         this.result += 1; 
       },
-      resetResult() {
-        this.result = 0;
-      },
       async sendResult() {
         
         const resultToSend =  this.result ; 
         console.log('Api przesyła:', resultToSend);
-      //  axios.post('https://localhost:7026/api/game', resultToSend)
         await axios.post('https://localhost:7026/api/game', resultToSend, {
           headers: {
             'Content-Type': 'application/json' 
@@ -35,6 +31,7 @@
           .catch((error) => {
             console.error('Błąd podczas wysyłania:', error?.response?.data?.message || error.message);
           });
+        this.result = 0;
       },
     },
   };
