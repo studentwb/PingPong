@@ -1,8 +1,9 @@
+using Server.Infrastructure.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowVueApp", policy =>
-            policy.WithOrigins("https://localhost:58706")  // Twój frontend port
+            policy.WithOrigins("https://localhost:58706")  
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials());
@@ -11,6 +12,7 @@ builder.Services.AddCors(options =>
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddInfrastructure(builder.Configuration);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
