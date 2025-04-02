@@ -14,10 +14,15 @@ namespace PingPong.Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult GetResult([FromBody] int result)
+        public IActionResult PostResult([FromBody] int result)
         {
             Console.WriteLine($"Otrzymano wynik: {result}");
             return Ok(new { message = "Wynik zapisany poprawnie" });
+        }
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(new { result = 0 });
         }
     }
 }
