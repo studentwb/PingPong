@@ -18,7 +18,10 @@
       },
       async sendResult() {
         
-        const resultToSend =  this.result ; 
+        const resultToSend = {
+          result: this.result,
+          playerId: 1,
+        } 
         console.log('Api przesyła:', resultToSend);
         await axios.post('https://localhost:7026/api/game', resultToSend, {
           headers: {

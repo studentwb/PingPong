@@ -1,28 +1,33 @@
 using Microsoft.AspNetCore.Mvc;
+using Server.Application.Games;
+using Server.Domain.Entites;
+using Server.Domain.Repositories;
 
 namespace PingPong.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GameController : ControllerBase
+    public class GameController(IGamesService gamesService) : ControllerBase
     {
-        private readonly ILogger<GameController> _logger;
-
-        public GameController(ILogger<GameController> logger)
-        {
-            _logger = logger;
-        }
-
         [HttpPost]
-        public IActionResult PostResult([FromBody] int result)
+        public async Task<IActionResult> PostResult([FromBody] Game game)
         {
-            Console.WriteLine($"Otrzymano wynik: {result}");
-            return Ok(new { message = "Wynik zapisany poprawnie" });
+            try
+            {
+                game.Date = DateTime.UtcNow;
+                await gamesService.Post(game);
+                return Ok(new { message = "Wynik zapisany poprawnie" });
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(new { result = 0 });
+            var games= await gamesService.GetAllGames();
+            return Ok(games);
         }
     }
 }

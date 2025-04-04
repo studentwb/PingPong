@@ -10,5 +10,6 @@ namespace Server.Domain.Repositories
     public interface IGamesRepository
     {
         Task<IEnumerable<Game>> GetGamesAsync();
+        Task Create(Game game);
     }
 }
