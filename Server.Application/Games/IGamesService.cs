@@ -4,7 +4,7 @@ namespace Server.Application.Games
 {
     public interface IGamesService
     {
-        Task<IEnumerable<Game>> GetAllGames();
+        Task<IEnumerable<Game>> GetAllGamesAsync();
         Task Post(Game game);
     }
 }

@@ -5,7 +5,7 @@ namespace Server.Application.Games
 {
     internal class GamesService(IGamesRepository gamesRepository) : IGamesService
     {
-        public async Task<IEnumerable<Game>> GetAllGames()
+        public async Task<IEnumerable<Game>> GetAllGamesAsync()
         {
             return await gamesRepository.GetGamesAsync();
         }

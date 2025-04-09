@@ -24,7 +24,7 @@ namespace PingPong.Server.Controllers
             }
         }
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAsync()
         {
             var games= await gamesService.GetAllGames();
             return Ok(games);
