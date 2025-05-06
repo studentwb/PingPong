@@ -9,8 +9,8 @@ namespace Server.Application.Games.Commands.SaveGame
         public async Task<int> Handle(SaveGameCommand request, CancellationToken cancellationToken)
         {
 
-            int id = await gamesRepository.Create(request.game);
-            return id;
+            return await gamesRepository.Create(request.game);
+            
         }
     }
 }
