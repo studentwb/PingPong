@@ -7,10 +7,11 @@ namespace Server.Infrastructure.Repositories
 {
     internal class GamesRepository(ApplicationDbContext dbContext) : IGamesRepository
     {
-        public async Task Create(Game game)
+        public async Task<int> Create(Game game)
         {
                 dbContext.Add(game);
-                await dbContext.SaveChangesAsync();
+                int id=await dbContext.SaveChangesAsync();
+            return id;
         }
 
         public async  Task<IEnumerable<Game>> GetGamesAsync()

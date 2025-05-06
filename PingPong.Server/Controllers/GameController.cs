@@ -1,13 +1,14 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Server.Application.Games;
+using Server.Application.Games.Commands.SaveGame;
+using Server.Application.Games.Queries.GetGames;
 using Server.Domain.Entites;
-using Server.Domain.Repositories;
 
 namespace PingPong.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GameController(IGamesService gamesService) : ControllerBase
+    public class GameController(IMediator mediator) : ControllerBase
     {
         [HttpPost]
         public async Task<IActionResult> PostResult([FromBody] Game game)
@@ -15,8 +16,8 @@ namespace PingPong.Server.Controllers
             try
             {
                 game.Date = DateTime.UtcNow;
-                await gamesService.Post(game);
-                return Ok(new { message = "Wynik zapisany poprawnie" });
+                var commandResult = await mediator.Send(new SaveGameCommand { game = game });
+                return Ok(new { message = "Wynik zapisany poprawnie " });
             }
             catch
             {
@@ -26,7 +27,7 @@ namespace PingPong.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAsync()
         {
-            var games= await gamesService.GetAllGames();
+            var games= await mediator.Send(new GetGamesQuery());
             return Ok(games);
         }
     }

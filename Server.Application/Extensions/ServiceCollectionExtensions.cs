@@ -1,13 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using Server.Application.Games;
+using FluentValidation;
+
 namespace Server.Application.Extensions
 {
     public static class ServiceCollectionExtensions
     {
         public static void AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<IGamesService, GamesService>();
+            var applicationAssembly=typeof(ServiceCollectionExtensions).Assembly;
+            services.AddMediatR(a => a.RegisterServicesFromAssembly(applicationAssembly));
         }
     }
 }
