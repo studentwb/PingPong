@@ -2,6 +2,7 @@
   import Game from './components/Game.vue'
   import Ball from './components/Ball.vue'
   import Result from './components/Result.vue'
+  import LoginView from './components/LoginPage.vue'
 </script>
 
 <template>
