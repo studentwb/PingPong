@@ -6,9 +6,7 @@
 </script>
 
 <template>
-   <main>
-    <Game/>
-  </main>
+  <router-view />
 </template>
 
 <style scoped>

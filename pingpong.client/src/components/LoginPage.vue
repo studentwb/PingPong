@@ -1,21 +1,22 @@
 <template>
-  <form name="login-form">
-    <div class="mb-3">
-      <label for="username">Username: </label>
-      <input id="username" type="text" />
-    </div>
-    <div class="mb-3">
-      <label for="password">Password: </label>
-      <input id="password" type="password" />
-    </div>
-    <button class="btn btn-outline-dark" type="submit">
-      Login
-    </button>
-  </form>
+  <div>
+    <h2>Logowanie</h2>
+    <input v-model="username" placeholder="login" />
+    <button @click="login">Zaloguj</button>
+  </div>
 </template>
 
-<script>
-export default {
-  name: 'LoginView',
-}
+<script lang="ts" setup>
+  import { ref } from 'vue';
+  import { useRouter } from 'vue-router';
+
+  const username = ref('');
+  const router = useRouter();
+
+  function login() {
+    if (username.value.trim()) {
+      localStorage.setItem('user', username.value);
+      router.push('/game'); 
+    }
+  }
 </script>
