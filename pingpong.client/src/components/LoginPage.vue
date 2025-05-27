@@ -15,7 +15,7 @@
         </button>
       </div>
       <button @click="login" class="btn">Login</button>
-
+      <button @click="register" class="btn">Register</button>
     </div>
   </div>
 </template>
@@ -34,6 +34,10 @@
       localStorage.setItem('user', username.value);
       router.push('/game'); 
     }
+  }
+  function register() {
+      router.push('/registerPage');
+    
   }
   function toggleShow() {
     showPassword.value = !showPassword.value
@@ -76,6 +80,7 @@
     color: #fff;
     font-size: 1rem;
     outline: none;
+    
 
   }
 
@@ -92,6 +97,7 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin: 10px;
   }
 
     .btn:hover {
