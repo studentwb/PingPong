@@ -3,6 +3,7 @@
   import Ball from './components/Ball.vue'
   import Result from './components/Result.vue'
   import LoginView from './components/LoginPage.vue'
+  import Register from './components/RegisterPage.vue'
 </script>
 
 <template>

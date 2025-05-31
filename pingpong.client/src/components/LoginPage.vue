@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="login-card">
-      <h2>Zaloguj się</h2>
+      <h2>Login</h2>
       <input v-model="username"
              placeholder="User name"
              class="input" />
