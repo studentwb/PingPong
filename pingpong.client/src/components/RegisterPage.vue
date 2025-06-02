@@ -29,7 +29,7 @@
 
   const handleRegister = () => {
     if (password.value !== confirmPassword.value) {
-      error.value = "Passwords do not matc!.";
+      error.value = "Passwords do not match!";
       return;
     }
 

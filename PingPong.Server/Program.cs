@@ -1,5 +1,6 @@
 using Server.Infrastructure.Extensions;
 using Server.Application.Extensions;
+using Server.Domain.Entites;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
@@ -31,7 +32,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.MapIdentityApi<User>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
