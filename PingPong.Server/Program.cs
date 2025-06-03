@@ -1,6 +1,7 @@
 using Server.Infrastructure.Extensions;
 using Server.Application.Extensions;
 using Server.Domain.Entites;
+using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
@@ -19,7 +20,24 @@ builder.Services.AddApplication();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("bearerAuth", new OpenApiSecurityScheme
+    {
+        Type=SecuritySchemeType.Http,
+        Scheme="Bearer"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference=new OpenApiReference{ Type= ReferenceType.SecurityScheme, Id="bearerAuth"}
+            },
+            []
+        }
+    });
+});
 
 var app = builder.Build();
 
@@ -32,7 +50,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.MapIdentityApi<User>();
+app.MapGroup("api/identity").MapIdentityApi<User>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

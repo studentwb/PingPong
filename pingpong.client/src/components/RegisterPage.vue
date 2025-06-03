@@ -27,16 +27,27 @@
 
   const router = useRouter();
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (password.value !== confirmPassword.value) {
       error.value = "Passwords do not match!";
       return;
     }
+    
+      const res = await fetch('https://localhost:7026/api/identity/register', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "*/*"  },
+        body: JSON.stringify({ email: email.value, password: password.value }),
+      });
 
-    console.log('Registering:', { username: username.value, email: email.value });
-    error.value = '';
-    router.push('/login'); 
+      console.log('Registering:', { username: username.value, email: email.value });
+
+      error.value = '';
+      router.push('/login');
+    
   };
+
 </script>
 
 <style scoped>
